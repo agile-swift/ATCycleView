@@ -1,0 +1,11 @@
+use_frameworks!
+
+target 'ATCycleView_Example' do
+  pod 'ATCycleView', :path => '../'
+
+  target 'ATCycleView_Tests' do
+    inherit! :search_paths
+
+    
+  end
+end
