@@ -18,5 +18,8 @@
   "platforms": {
     "ios": "9.0"
   },
-  "source_files": "ATCycleView/Classes/**/*"
+  "source_files": "ATCycleView/Classes/**/*",
+  "dependencies": {
+    "ATTimer": [ ]
+  }
 }
