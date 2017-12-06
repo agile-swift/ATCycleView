@@ -34,16 +34,16 @@ open class ATCycleView: UIView {
             self.endTimer()
         }
         didSet {
-            if autoSrcollTimeInterval != 0 {
-                self.startTimer()
-            }
+            self.startTimer()
         }
     }
     
     open var autoScrollAnimateInterval : TimeInterval = 0.3
     
     open var index : Int {
-        set { _index = newValue }
+        set {
+            _realIndex = newValue
+        }
         get { return _index }
     }
     
@@ -75,18 +75,28 @@ open class ATCycleView: UIView {
             if reuseView == view {
                 _cacheViews.removeFirst()
             }
+//            let label = UILabel.init(frame: view.bounds)
+//            label.text = "\(index)"
+//            label.font = UIFont.boldSystemFont(ofSize: 50)
+//            label.textAlignment = .center
+//            view.addSubview(label)
             _displayViews.append(view)
         }
 
         if (_index >= _pageCount) {
-            _index = 0
+            _realIndex = 0
         } else {
-            let idx = _index
-            _index = idx
+            _realIndex = _index
         }
     }
 
     open func configPageControl<ATPageControl>(pageControl : ATPageControl) where ATPageControl : UIView, ATPageControl : ATCycleViewPageControl  {
+        if let defaultPageControl : UIView = _defaultPageControl {
+            if defaultPageControl != pageControl {
+                _defaultPageControl?.removeFromSuperview()
+                _defaultPageControl = nil
+            }
+        }
         _pageControl = pageControl
         _pageControl?.numberOfPages = _pageCount
         self.addSubview(pageControl)
@@ -99,6 +109,12 @@ open class ATCycleView: UIView {
             _scrollView!.contentSize = CGSize.init(width: (_scrollView?.frame.width)! * 3, height: 0)
             _scrollView?.contentOffset = CGPoint.init(x: _scrollView!.frame.width, y: 0)
         }
+        guard let defaultPageControl : UIView = _defaultPageControl,
+            let pageControl = _pageControl as? UIView,
+            defaultPageControl == pageControl else {
+            return
+        }
+        _defaultPageControl?.frame = CGRect.init(x: 0, y: self.frame.size.height - 40, width: self.frame.size.width, height: 40)
     }
     
     open override func didMoveToSuperview() {
@@ -118,11 +134,7 @@ open class ATCycleView: UIView {
         addSubview(_scrollView!)
         let tap = UITapGestureRecognizer.init(target: self, action: #selector(tapAction))
         self.addGestureRecognizer(tap)
-        
-        let pageControl = UIPageControl.init(frame: CGRect.init(x: 0, y: self.frame.size.height - 40, width: self.frame.size.width, height: 40))
-        pageControl.hidesForSinglePage = true
-        pageControl.isUserInteractionEnabled = false
-        self.configPageControl(pageControl: pageControl)
+        self.configPageControl(pageControl: _defaultPageControl!)
     }
     
     required public init?(coder aDecoder: NSCoder) {
@@ -134,28 +146,19 @@ open class ATCycleView: UIView {
     }
     
     private func scrollIndexUp() {
-        let i = (_index + 2 + _pageCount) % _pageCount
-        let v = _displayViews[i]
+        var i : Int?
+        i = (_realIndex + 2 + _needCount) % _needCount
+        let v = _displayViews[i!]
         v.isHidden = true
         UIView.animate(withDuration: autoScrollAnimateInterval, animations: {
-            self._scrollView?.contentOffset = CGPoint.init(x: (self._scrollView?.contentOffset.x)! + (self._scrollView?.frame.size.width)!, y: 0)
-        }, completion: { (finish) in
-            v.isHidden = false
-        })
-    }
-    
-    private func scrollIndexDown() {
-        let i = (_index - 2 + _pageCount) % _pageCount
-        let v = _displayViews[i]
-        v.isHidden = true
-        UIView.animate(withDuration: autoScrollAnimateInterval, animations: {
-            self._scrollView?.contentOffset = CGPoint.init(x: (self._scrollView?.contentOffset.x)! - (self._scrollView?.frame.size.width)!, y: 0)
+            self._scrollView?.contentOffset.x = (self._scrollView?.contentOffset.x)! + (self._scrollView?.frame.size.width)!
         }, completion: { (finish) in
             v.isHidden = false
         })
     }
 
     private func startTimer() {
+        if autoSrcollTimeInterval == 0 { return }
         _timer = ATTimer.init(interval: autoSrcollTimeInterval, repeatTimes: UInt.max, queue: .main, handler: { [weak self] (timer, times) in
             self?.scrollIndexUp()
         })
@@ -171,7 +174,14 @@ open class ATCycleView: UIView {
     private var _pageCount : Int = 0
     private var _cacheViews : Set<UIView> = []
     private var _pageControl : ATCycleViewPageControl?
-    private var _needCount : Int = 3 ///
+    /// 需要最少页数
+    private var _needCount : Int = 3
+    /// 按照需要页数计算的索引
+    private var _realIndex : Int = 0 {
+        didSet {
+            _index = _realIndex % _pageCount
+        }
+    }
     private var _timer : ATTimer?
     private var _isDragging = false
 
@@ -180,7 +190,7 @@ open class ATCycleView: UIView {
             if _pageCount == 0 || _index < 0 || _index >= _pageCount {
                 return
             }
-            var left = (_index - 1) % _needCount
+            var left = (_realIndex - 1) % _needCount
             if (left < 0) {
                 left = left + _needCount
             }
@@ -188,12 +198,12 @@ open class ATCycleView: UIView {
             leftView.transform = CGAffineTransform.init(translationX: 0, y: 0)
             self._scrollView?.addSubview(leftView)
             
-            let mid = self._index % self._needCount
+            let mid = self._realIndex % self._needCount
             let midView = self._displayViews[mid]
             midView.transform = CGAffineTransform.init(translationX: self.frame.size.width, y: 0)
             self._scrollView?.addSubview(midView)
             
-            let right = (self._index + 1) % self._needCount
+            let right = (self._realIndex + 1) % self._needCount
             let rightView = self._displayViews[right]
             rightView.transform = CGAffineTransform.init(translationX: self.frame.size.width * 2, y: 0)
             self._scrollView?.addSubview(rightView)
@@ -203,6 +213,12 @@ open class ATCycleView: UIView {
         }
     }
     
+    private lazy var _defaultPageControl : UIPageControl? = { ()-> UIPageControl in
+        let pageControl = UIPageControl.init()
+        pageControl.hidesForSinglePage = true
+        pageControl.isUserInteractionEnabled = false
+        return pageControl
+    }()
 }
 
 extension ATCycleView : UIScrollViewDelegate {
@@ -210,10 +226,10 @@ extension ATCycleView : UIScrollViewDelegate {
 
         let defaultX = scrollView.frame.width
         if scrollView.contentOffset.x == 2 * defaultX {
-            _index = (_index + _pageCount + 1) % _pageCount
+            _realIndex = (_realIndex + _needCount + 1) % _needCount
             scrollView.contentOffset = CGPoint.init(x: defaultX, y: 0)
         } else if scrollView.contentOffset.x == 0 {
-            _index = (_index + _pageCount - 1) % _pageCount
+            _realIndex = (_realIndex + _needCount - 1) % _needCount
             scrollView.contentOffset = CGPoint.init(x: defaultX, y: 0)
         }
         // adjust page control
@@ -248,9 +264,4 @@ extension ATCycleView : UIScrollViewDelegate {
         _isDragging = false
         startTimer()
     }
-}
-
-
-extension UIPageControl : ATCycleViewPageControl {
-    
 }
