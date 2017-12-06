@@ -1,6 +1,6 @@
 {
   "name": "ATCycleView",
-  "version": "0.1.1",
+  "version": "0.1.2",
   "summary": "ATCycleView used for cycle image",
   "description": "ATCycleView is a part of agile tools for swift, used for cycle image ",
   "homepage": "https://github.com/agile-swift/ATCycleView",
@@ -13,7 +13,7 @@
   },
   "source": {
     "git": "https://github.com/agile-swift/ATCycleView.git",
-    "tag": "0.1.1"
+    "tag": "0.1.2"
   },
   "platforms": {
     "ios": "9.0"
