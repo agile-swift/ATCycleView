@@ -1,29 +1,28 @@
 # ATCycleView
 
-[![CI Status](http://img.shields.io/travis/devkevinma@gmail.com/ATCycleView.svg?style=flat)](https://travis-ci.org/devkevinma@gmail.com/ATCycleView)
-[![Version](https://img.shields.io/cocoapods/v/ATCycleView.svg?style=flat)](http://cocoapods.org/pods/ATCycleView)
-[![License](https://img.shields.io/cocoapods/l/ATCycleView.svg?style=flat)](http://cocoapods.org/pods/ATCycleView)
-[![Platform](https://img.shields.io/cocoapods/p/ATCycleView.svg?style=flat)](http://cocoapods.org/pods/ATCycleView)
+开发调试功能集成
 
-## Example
+## 集成([CocoaPods](http://cocoapods.org))
 
-To run the example project, clone the repo, and run `pod install` from the Example directory first.
+在 podfile 文件中添加
 
-## Requirements
-
-## Installation
-
-ATCycleView is available through [CocoaPods](http://cocoapods.org). To install
-it, simply add the following line to your Podfile:
-
-```ruby
+```
+source "https://github.com/agile-swift/Specs.git"
 pod 'ATCycleView'
 ```
 
-## Author
+
+## 详细信息
+
+请移步[https://github.com/agile-swift/AgileTools/blob/master/README.md](https://github.com/agile-swift/AgileTools/blob/master/README.md)
+
+
+## 功能
+
+* 高性能无限轮播器
+* 不局限于图片，自定义轮播内容
+* 基于协议自定义轮播指示器
+
+## 反馈
 
 devkevinma@gmail.com, admin@makaiwen.com
-
-## License
-
-ATCycleView is available under the MIT license. See the LICENSE file for more info.

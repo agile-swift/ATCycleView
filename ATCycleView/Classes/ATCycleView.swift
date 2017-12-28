@@ -8,14 +8,36 @@
 import UIKit
 import ATTimer
 
+/// the delegate of cycleView
 @objc public protocol ATCycleViewDelegate : NSObjectProtocol {
     
+    /// get item count of cycleView
+    ///
+    /// - Parameter cycleView: current cycleView
+    /// - Returns: item count
     @objc func numberOfItems(in cycleView: ATCycleView) -> Int
     
+    /// get the view will display in cycleView with index
+    ///
+    /// - Parameters:
+    ///   - cycleView: current cycleView
+    ///   - index: index of page
+    ///   - reuseView: reuse view, you will get that from second reload data
+    /// - Returns: display view
     @objc func cycleView(_ cycleView: ATCycleView, viewAtIndex index:Int,reuseView : UIView?) -> UIView
     
+    /// optional, callback after item view clicked
+    ///
+    /// - Parameters:
+    ///   - cycleView: current cycleView
+    ///   - index: view index that clicked
     @objc optional func cycleView(_ cycleView: ATCycleView,didSelectIndex index:Int) -> Void
 
+    /// optional, callback after cycly scrolled to index
+    ///
+    /// - Parameters:
+    ///   - cycleView: current cycleView
+    ///   - index: view index that scrolled to
     @objc optional func cycleView(_ cycleView: ATCycleView,didScrollToIndex index:Int) -> Void
 
 }
@@ -38,8 +60,10 @@ open class ATCycleView: UIView {
         }
     }
     
+    /// animate interval of auto scroll
     open var autoScrollAnimateInterval : TimeInterval = 0.3
     
+    /// current index
     open var index : Int {
         set {
             _realIndex = newValue
@@ -52,6 +76,7 @@ open class ATCycleView: UIView {
         setupView()
     }
     
+    /// reload data, the delegate methods will call after reload
     open func reloadData() -> Void {
         _scrollView?.frame = bounds
 
@@ -75,11 +100,6 @@ open class ATCycleView: UIView {
             if reuseView == view {
                 _cacheViews.removeFirst()
             }
-//            let label = UILabel.init(frame: view.bounds)
-//            label.text = "\(index)"
-//            label.font = UIFont.boldSystemFont(ofSize: 50)
-//            label.textAlignment = .center
-//            view.addSubview(label)
             _displayViews.append(view)
         }
 
@@ -90,6 +110,9 @@ open class ATCycleView: UIView {
         }
     }
 
+    /// config page control, if you do not want to use default please call this method
+    ///
+    /// - Parameter pageControl: the new page control you need display
     open func configPageControl<ATPageControl>(pageControl : ATPageControl) where ATPageControl : UIView, ATPageControl : ATCycleViewPageControl  {
         if let defaultPageControl : UIView = _defaultPageControl {
             if defaultPageControl != pageControl {

@@ -7,6 +7,7 @@
 	objects = {
 
 /* Begin PBXBuildFile section */
+		0AB096871FF4DE7C00402387 /* ATCycleView.podspec.json in Resources */ = {isa = PBXBuildFile; fileRef = 0AB096861FF4DE7C00402387 /* ATCycleView.podspec.json */; };
 		4EE994C92C6ADE2EC21CE958 /* Pods_ATCycleView_Example.framework in Frameworks */ = {isa = PBXBuildFile; fileRef = ABC6E7FD83E30103BA47BFFE /* Pods_ATCycleView_Example.framework */; };
 		607FACD61AFB9204008FA782 /* AppDelegate.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD51AFB9204008FA782 /* AppDelegate.swift */; };
 		607FACD81AFB9204008FA782 /* ViewController.swift in Sources */ = {isa = PBXBuildFile; fileRef = 607FACD71AFB9204008FA782 /* ViewController.swift */; };
@@ -28,10 +29,11 @@
 /* End PBXContainerItemProxy section */
 
 /* Begin PBXFileReference section */
+		0AB096861FF4DE7C00402387 /* ATCycleView.podspec.json */ = {isa = PBXFileReference; fileEncoding = 4; lastKnownFileType = text.json; name = ATCycleView.podspec.json; path = ../ATCycleView.podspec.json; sourceTree = "<group>"; };
 		2B225D72F57BF51035549953 /* Pods-ATCycleView_Tests.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ATCycleView_Tests.release.xcconfig"; path = "Pods/Target Support Files/Pods-ATCycleView_Tests/Pods-ATCycleView_Tests.release.xcconfig"; sourceTree = "<group>"; };
 		31DD1B90407DDB8EB3D5E263 /* Pods_ATCycleView_Tests.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ATCycleView_Tests.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		34E5E522A75214ABBBB57314 /* Pods-ATCycleView_Example.release.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ATCycleView_Example.release.xcconfig"; path = "Pods/Target Support Files/Pods-ATCycleView_Example/Pods-ATCycleView_Example.release.xcconfig"; sourceTree = "<group>"; };
-		39D96BF60332E51A583E8D43 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
+		39D96BF60332E51A583E8D43 /* LICENSE */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text; name = LICENSE; path = ../LICENSE; sourceTree = "<group>"; };
 		607FACD01AFB9204008FA782 /* ATCycleView_Example.app */ = {isa = PBXFileReference; explicitFileType = wrapper.application; includeInIndex = 0; path = ATCycleView_Example.app; sourceTree = BUILT_PRODUCTS_DIR; };
 		607FACD41AFB9204008FA782 /* Info.plist */ = {isa = PBXFileReference; lastKnownFileType = text.plist.xml; path = Info.plist; sourceTree = "<group>"; };
 		607FACD51AFB9204008FA782 /* AppDelegate.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = AppDelegate.swift; sourceTree = "<group>"; };
@@ -44,8 +46,7 @@
 		607FACEB1AFB9204008FA782 /* Tests.swift */ = {isa = PBXFileReference; lastKnownFileType = sourcecode.swift; path = Tests.swift; sourceTree = "<group>"; };
 		ABC6E7FD83E30103BA47BFFE /* Pods_ATCycleView_Example.framework */ = {isa = PBXFileReference; explicitFileType = wrapper.framework; includeInIndex = 0; path = Pods_ATCycleView_Example.framework; sourceTree = BUILT_PRODUCTS_DIR; };
 		C713F9F0FB4F5F9537DC3940 /* Pods-ATCycleView_Example.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ATCycleView_Example.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ATCycleView_Example/Pods-ATCycleView_Example.debug.xcconfig"; sourceTree = "<group>"; };
-		C8EFD43728000DFE14B27E75 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; name = README.md; path = ../README.md; sourceTree = "<group>"; };
-		D41442B46C83DCC477763AE3 /* ATCycleView.podspec */ = {isa = PBXFileReference; includeInIndex = 1; name = ATCycleView.podspec; path = ../ATCycleView.podspec; sourceTree = "<group>"; };
+		C8EFD43728000DFE14B27E75 /* README.md */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = net.daringfireball.markdown; name = README.md; path = ../README.md; sourceTree = "<group>"; };
 		FE6B5FE8AC0D5FDF6FFE95DC /* Pods-ATCycleView_Tests.debug.xcconfig */ = {isa = PBXFileReference; includeInIndex = 1; lastKnownFileType = text.xcconfig; name = "Pods-ATCycleView_Tests.debug.xcconfig"; path = "Pods/Target Support Files/Pods-ATCycleView_Tests/Pods-ATCycleView_Tests.debug.xcconfig"; sourceTree = "<group>"; };
 /* End PBXFileReference section */
 
@@ -141,7 +142,7 @@
 		607FACF51AFB993E008FA782 /* Podspec Metadata */ = {
 			isa = PBXGroup;
 			children = (
-				D41442B46C83DCC477763AE3 /* ATCycleView.podspec */,
+				0AB096861FF4DE7C00402387 /* ATCycleView.podspec.json */,
 				C8EFD43728000DFE14B27E75 /* README.md */,
 				39D96BF60332E51A583E8D43 /* LICENSE */,
 			);
@@ -248,6 +249,7 @@
 			isa = PBXResourcesBuildPhase;
 			buildActionMask = 2147483647;
 			files = (
+				0AB096871FF4DE7C00402387 /* ATCycleView.podspec.json in Resources */,
 				607FACDB1AFB9204008FA782 /* Main.storyboard in Resources */,
 				607FACE01AFB9204008FA782 /* LaunchScreen.xib in Resources */,
 				607FACDD1AFB9204008FA782 /* Images.xcassets in Resources */,
@@ -272,10 +274,12 @@
 			inputPaths = (
 				"${SRCROOT}/Pods/Target Support Files/Pods-ATCycleView_Example/Pods-ATCycleView_Example-frameworks.sh",
 				"${BUILT_PRODUCTS_DIR}/ATCycleView/ATCycleView.framework",
+				"${BUILT_PRODUCTS_DIR}/ATTimer/ATTimer.framework",
 			);
 			name = "[CP] Embed Pods Frameworks";
 			outputPaths = (
 				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ATCycleView.framework",
+				"${TARGET_BUILD_DIR}/${FRAMEWORKS_FOLDER_PATH}/ATTimer.framework",
 			);
 			runOnlyForDeploymentPostprocessing = 0;
 			shellPath = /bin/sh;

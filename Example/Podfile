@@ -2,7 +2,7 @@ use_frameworks!
 
 target 'ATCycleView_Example' do
   pod 'ATCycleView', :path => '../'
-
+  pod 'ATTimer', :path => '../../ATTimer'
   target 'ATCycleView_Tests' do
     inherit! :search_paths
 

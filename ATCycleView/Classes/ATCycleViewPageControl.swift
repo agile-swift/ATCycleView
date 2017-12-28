@@ -7,6 +7,7 @@
 
 import Foundation
 
+/// page control protocol
 public protocol ATCycleViewPageControl : NSObjectProtocol {
     
     var numberOfPages : Int {set get}
@@ -16,22 +17,29 @@ public protocol ATCycleViewPageControl : NSObjectProtocol {
     
 }
 
+
+// MARK: - UIPageControl is a good page control of ATCycleView
 extension UIPageControl : ATCycleViewPageControl {
     
 }
 
+/// child of UIPageControl, you can set your own image dot by this
 public class CycleViewPageControl : UIPageControl {
-//    pageControl.setValue(UIImage.init(named: "dot"), forKeyPath: "pageImage")
-//    pageControl.setValue(UIImage.init(named: "dotline"), forKeyPath: "currentPageImage")
-    
+
     private var itemSize = CGSize.init(width: 7, height: 7)
     
+    /// space of two indicator
     public var indicatorSpacing : CGFloat = 10 {
         didSet {
             layoutIfNeeded()
         }
     }
     
+    /// config image of current and others
+    ///
+    /// - Parameters:
+    ///   - image: image of others
+    ///   - currentImage: image of current
     public func setPageImage(_ image : UIImage, andCurrentImage currentImage: UIImage) {
         super.setValue(image, forKeyPath: "pageImage")
         super.setValue(currentImage, forKeyPath: "currentPageImage")
